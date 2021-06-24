@@ -18,6 +18,7 @@ penguins_bill_depth_mm <- new_penguin$bill_depth_mm
 penguins_flipper_length_mm <- new_penguin$flipper_length_mm
 penguins_body_mass_g <- new_penguin$body_mass_g
 
+#check for numeric vs character
 is.numeric(penguins_species)
 
 #statistics for year
