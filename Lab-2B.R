@@ -67,22 +67,23 @@ ncol(merged_frame2)
 
 #isnt this it tho
   #subset
-  subset(merged_frame2, merged_frame2$num_1 > 0)
- socal_set <- subset(merged_frame2, merged_frame2$NAME %in% socal)
- sum( socal_set$Pop_size)
- sum( socal_set$Bach_18_24)
-mean(socal_set$Med_Income)
+  subset(merged_frame2, merged_frame2$num_1 > 0) #idk what this does
+ socal_set <- subset(merged_frame2, merged_frame2$NAME %in% socal) #creates subset using names from socal vector
+
+#how to write as an xlsx idk why i did this tbh
 library(xlsx)
   write.xlsx(merged_frame2,"/Users/victoria/Downloads/merged_frame.xlsx")
-  
   write.csv(merged_frame2,"/Users/victoria/Downloads/merged_frame.csv", row.names=TRUE)
+  
+  
 # Question 4
-# 
 # What is the population size for Southern California?
 #   Question 5
-# 
+  sum( socal_set$Pop_size)
+  
 # How many individuals aged 35-44 have a Bachelor’s Degree in Southern California?
 #   Question 6
-# 
+  sum( socal_set$Bach_35_44)
+  
 # What is the average median income in Southern California?
-#   
+  mean(socal_set$Med_Income)
