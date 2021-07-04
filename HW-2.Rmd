@@ -1,0 +1,387 @@
+---
+title: 'STAT 147 | HW'
+subtitle: 'Week 2 HW'
+author: "Victoria Nguyen"
+output:
+  html_document:
+    theme: default
+    toc: true
+    toc_depth: 3
+    number_sections: false
+    toc_float:
+      collapsed: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{css, echo = FALSE}
+
+pre, code {
+  white-space:pre !important;
+  overflow-x:scroll !important}
+
+.a-panel {
+	background-color:	#e6fff9;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+	box-shadow: 0px 0px 0px 0px, 0px 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+```
+
+
+# Questions
+
+## Part 1
+
+### Q1
+
+#### Part A
+
+Is to be completed in Lab 2A. Below is a description of what is necessary from the lab.
+
+- Load the following data sets in R: `ca_pop.csv`, `ca_edu.xlsx`, `ca_med_inc.sav`.
+
+- Merge the data frames into one giant data frame.
+
+- Creating an indicator variable for counties located in Southern California.
+
+```{r, echo=TRUE}
+socal <- c("San Luis Obispo County, California", "Kern County, California",
+           "San Bernardino County, California", "Santa Barbara County, California",
+           "Ventura County, California","Los Angeles County, California",
+           "Orange County, California", "Riverside County, California",
+           "San Diego County, California", "Imperial County, California")
+
+```
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+
+#### Part B
+
+##### 1.
+
+Create a new vector indicating how many individuals have received a Bachelor's Degree for each county.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+##### 2.
+
+How many individuals have a Bachelor's degree in Southern California?
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+##### 3.
+
+What is the average proportion of individuals in Southern California who have a Bachelor's Degree?
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+##### 4.
+
+The correlation measures the association between numeric variables. It can have a number between -1 and 1. The closer the value is to 0, the stronger evidence there is no association. The closer the value is to 1/-1, the stronger evidence of a positive/negative association. 
+
+You can find the correlation between two vectors using the `cor` function. You will only need to specify the two variables separated by a comma in the function.
+
+Find the correlation between median income and Proportion of Bachelor's Degree in each county.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+
+##### 5.
+
+What is the correlation between median income and proportion of Bachelor's degree in Southern California.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+## Part 2
+
+### Q2
+
+Recreate the matrices below.  Please use the same names as those shown.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q3
+
+Multiply the two matrices `two_col_mat` and `sqr_even_mat`.  Store the result in a variable named `prod_mat`.  Print the matrix to check.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q4
+
+Let's return to the two original matrices, `sqr_even_mat` and `two_col_mat`. Bind the columns together, resulting in a matrix with 6 columns.  Place `sqr_even_mat` on the left and `two_col_mat` on the right. Store the result as `six_col_mat`
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q5
+
+Next we want to bind the rows.  What is wrong with the following code?
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+## Part 3
+
+The next questions will involve the `penguins` data set from the `palmerpenguins` package.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q6
+
+For each penguin species, find the mean `bill_length_mm`. Remember to eliminate the missing observations.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q7
+
+For each species and sex, find the mean `bill_length_mm`.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q8
+
+Create a two new variables indicating if the penguin is in the top $50^{th}$ percentile (including $50^{th}$) for the variables `bill_length_mm` and `bill_depth_mm` . Generate a $2\times 2$ contingency table.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q9
+
+Using the new variables, find the mean `body_mass_g` for each $50^{th}$ percentile indicator variable `bill_length_mm` and `bill_depth_mm`.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q10
+
+Find the ratio of the standardized `bill_length_mm` and standardized `bill_depth_mm` for each island: $ std(bill_length_mm) / std(bill_depth_mm)$. To standardize a variable, use the z-score formula: 
+$$
+z = \frac{x-mean(x)}{sd(x)}.
+$$
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+## Part 4
+
+### Q11
+
+The `readr` package has two separate functions to read data that are separated by white space (space, tab, etc...): `read_table` and `read_table2`. Read the help documentation for the functions and explain why you may want to use one function over the other function.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q12
+
+Both `lapply` and `sapply` functions belong to the same family of `*apply` functions where a user specified function is applied to an R object. What is the difference between the `sapply` and `lapply` function.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q13
+
+In linear algebra, the Kronecker product creates block matrices from two matrices. The Kronecker product multiplies each element of the first matrix the entire second matrix. What is the function in R to find the Kronecker product?
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q14
+
+What function do you use to view what files are in your working directory?
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
+
+### Q15
+
+Fix the code.
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+## Type Code Here
+## Delete chunk if necessary
+```
+
+:::{.a-panel}
+Type Response Here.
+
+Delete if necessary.
+::::
