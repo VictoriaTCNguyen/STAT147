@@ -361,15 +361,42 @@ Chinstrap male: 51.09412
 Create a two new variables indicating if the penguin is in the top $50^{th}$ percentile (including $50^{th}$) for the variables `bill_length_mm` and `bill_depth_mm` . Generate a $2\times 2$ contingency table.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+
+# 50th percentile for bill length
+bill_length_50 <- median(new_penguin$bill_length_mm)
+
+# 50th percentile for bill depth
+bill_depth_50 <- median(new_penguin$bill_depth_mm)
+
+#there is a better way to do this but i have a smooth brain
+#making a new vector so i don't accidentally ruin new_penguin
+new_penguin2 <-data.frame(new_penguin)
+
+#creates a column giving TRUE if the penguin's bill length is greater than or equal to the median (meaning it is in the top 50th percentile)
+new_penguin2$BL_in_50_percentile <- (new_penguin2$bill_length_mm >= bill_length_50)
+
+#creates a column giving TRUE if the penguin's bill depth is in the top 50th percentile
+new_penguin2$BD_in_50_percentile <- (new_penguin2$bill_depth_mm >= bill_depth_50)
+
+# 2x2 contingency table ... length & depth vs in 50th percentile vs not
+
+
+#convert results to  data frame
+BL_BD_50_table <- table(new_penguin2$BD_in_50_percentile, new_penguin2$BL_in_50_percentile)
+  print.table(BL_BD_50_table) # doesn't have good labels, adding them so table is better for viewing
+  
+dimnames(BL_BD_50_table) <- list("Bill Depth" = c("<50", "50≤"),
+                                 "Bill Length" = c("<50", "50≤"))
+
+BL_BD_50_table
+
+# checking using filters.. 
+# 52 = both below 
+# 109 = BL in top 50, BD below
+# 114 = BL below, BD above
+# 58 = both in top 50
 ```
 
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
 
 ### Q9
 
