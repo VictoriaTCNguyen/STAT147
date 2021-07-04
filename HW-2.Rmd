@@ -268,29 +268,45 @@ a package is needed to fill the "empty columns" with NA if we want to bind matri
 The next questions will involve the `penguins` data set from the `palmerpenguins` package.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+install.packages("palmerpenguins")
+library(palmerpenguins)
+#eliminate observations with missing values
+new_penguin <- na.omit(penguins)
+new_penguin
+
 ```
-
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
 
 ### Q6
 
 For each penguin species, find the mean `bill_length_mm`. Remember to eliminate the missing observations.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+
+#Adelie
+Adelie_set <- subset(new_penguin, new_penguin$species %in% "Adelie") #create subset
+Adelie_bill_length_set <- subset(Adelie_set, Adelie_set$bill_length_mm >0) #create subset of just bill lengths, removes empty values
+Adelie_BL_mean <- mean(Adelie_bill_length_set$bill_length_mm)
+Adelie_BL_mean
+
+#Gentoo
+Gentoo_set <- subset(new_penguin, new_penguin$species %in% "Gentoo") #create subset
+Gentoo_bill_length_set <- subset(Gentoo_set, Gentoo_set$bill_length_mm >0) #create subset of just bill lengths, removes empty values
+Gentoo_BL_mean <- mean(Gentoo_bill_length_set$bill_length_mm)
+Gentoo_BL_mean
+
+#Chinstrap
+Chinstrap_set <- subset(new_penguin, new_penguin$species %in% "Chinstrap") #create subset
+Chinstrap_bill_length_set <- subset(Chinstrap_set, Chinstrap_set$bill_length_mm >0) #create subset of just bill lengths, removes empty values
+Chinstrap_BL_mean <- mean(Chinstrap_bill_length_set$bill_length_mm)
+Chinstrap_BL_mean
 ```
 
 :::{.a-panel}
-Type Response Here.
 
-Delete if necessary.
+Adelie: 38.82397
+Gentoo: 47.56807
+Chinstrap: 48.83382
+
 ::::
 
 ### Q7
@@ -298,14 +314,46 @@ Delete if necessary.
 For each species and sex, find the mean `bill_length_mm`.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+#Adelie
+Adelie_F_bill_length_set <- subset(Adelie_bill_length_set, Adelie_bill_length_set$sex %in% 
+                                     "female") 
+Adelie_M_bill_length_set <- subset(Adelie_bill_length_set, Adelie_bill_length_set$sex %in% 
+                                     "male") 
+Adelie_F_BL_mean <- mean(Adelie_F_bill_length_set$bill_length_mm)
+Adelie_M_BL_mean <- mean(Adelie_M_bill_length_set$bill_length_mm)
+Adelie_F_BL_mean 
+Adelie_M_BL_mean 
+
+#Gentoo
+Gentoo_F_bill_length_set <- subset(Gentoo_bill_length_set, Gentoo_bill_length_set$sex %in% 
+                                     "female") 
+Gentoo_M_bill_length_set <- subset(Gentoo_bill_length_set, Gentoo_bill_length_set$sex %in% 
+                                     "male") 
+Gentoo_F_BL_mean <- mean(Gentoo_F_bill_length_set$bill_length_mm)
+Gentoo_M_BL_mean <- mean(Gentoo_M_bill_length_set$bill_length_mm)
+Gentoo_F_BL_mean 
+Gentoo_M_BL_mean 
+
+#Chinstrap
+Chinstrap_F_bill_length_set <- subset(Chinstrap_bill_length_set, Chinstrap_bill_length_set$sex %in% 
+                                     "female") 
+Chinstrap_M_bill_length_set <- subset(Chinstrap_bill_length_set, Chinstrap_bill_length_set$sex %in% 
+                                     "male") 
+Chinstrap_F_BL_mean <- mean(Chinstrap_F_bill_length_set$bill_length_mm)
+Chinstrap_M_BL_mean <- mean(Chinstrap_M_bill_length_set$bill_length_mm)
+Chinstrap_F_BL_mean 
+Chinstrap_M_BL_mean 
+
 ```
 
 :::{.a-panel}
-Type Response Here.
+Adelie female: 37.25753
+Adelie male: 40.39041
+Gentoo female: 45.56379
+Gentoo male: 49.47377
+Chinstrap female: 46.57353
+Chinstrap male: 51.09412
 
-Delete if necessary.
 ::::
 
 ### Q8
