@@ -122,6 +122,7 @@ subset(merged_frame2, merged_frame2$num_1 > 0)
    
 socal_bach_sum <- sum(sum_bach_socal_county)
 socal_bach_sum
+# 5597031 bachelors degrees in southern california
 ```
 
 :::{.a-panel}
@@ -135,14 +136,23 @@ Delete if necessary.
 What is the average proportion of individuals in Southern California who have a Bachelor's Degree?
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+
+# find number of individuals per county in socal
+#creates vector of just county pops for socal
+socal_county_pop <- socal_set[, c(7)]
+socal_county_pop
+# find proportion of individuals with bach in socal 
+#creates vector of the proportions
+socal_county_bach_prop <-    (sum_bach_socal_county / socal_county_pop)
+socal_county_bach_prop
+
+mean(socal_county_bach_prop)
+
+#the average socal county has a proportion of 0.2126916 bachelors degree owners
 ```
 
 :::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
+the average socal county has a proportion of 0.2126916 bachelors degree owners
 ::::
 
 ##### 4.
