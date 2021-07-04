@@ -61,8 +61,21 @@ socal <- c("San Luis Obispo County, California", "Kern County, California",
 ```
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+ca_pop_table2 <- read.csv("/Users/victoria/Downloads/ca_pop.csv")
+head(Pop_size)
+ca_pop_table2
+
+install.packages("readxl")
+library("readxl")
+ca_edu_table2 <- read_excel("/Users/victoria/Downloads/ca_edu.xlsx", sheet = 1)
+ca_edu_table2
+
+#install haven
+install.packages("haven")                             # Install haven package
+library("haven")                                      # Load haven package
+
+ca_med_inc_table <- read_sav("/Users/victoria/Downloads/ca_med_inc.sav")                         # Reading data
+ca_med_inc_table 
 ```
 
 :::{.a-panel}
