@@ -118,7 +118,7 @@ subset(merged_frame2, merged_frame2$num_1 > 0)
  socal_set <- subset(merged_frame2, merged_frame2$NAME %in% socal) #creates subset using names from socal vector
  
  sum_bach_socal_county <- rowSums(socal_set[, c(2, 3, 4, 5, 6)])
-   sum_bach_socal_county
+ sum_bach_socal_county
    
 socal_bach_sum <- sum(sum_bach_socal_county)
 socal_bach_sum
@@ -128,7 +128,6 @@ socal_bach_sum
 :::{.a-panel}
 5597031 bachelors degrees in southern california
 
-Delete if necessary.
 ::::
 
 ##### 3.
@@ -164,14 +163,29 @@ You can find the correlation between two vectors using the `cor` function. You w
 Find the correlation between median income and Proportion of Bachelor's Degree in each county.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+#vector of median income
+cal_median_inc <- merged_frame2[, c(8)]
+cal_median_inc
+
+#vector of bach degrees
+sum_bach_cal_county <- rowSums(merged_frame2[, c(2, 3, 4, 5, 6)])
+sum_bach_cal_county
+
+#vector of pops
+cal_county_pop <- merged_frame2[, c(7)]
+cal_county_pop
+
+#proportions of degrees per county
+cal_bach_prop <- (sum_bach_cal_county / cal_county_pop)
+
+cor(cal_bach_prop, cal_median_inc)
+
+## correlation between median income and Proportion of Bachelor's Degree in each county: 0.141871
 ```
 
 :::{.a-panel}
-Type Response Here.
+correlation between median income and Proportion of Bachelor's Degree in each county: 0.141871
 
-Delete if necessary.
 ::::
 
 
@@ -180,14 +194,18 @@ Delete if necessary.
 What is the correlation between median income and proportion of Bachelor's degree in Southern California.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+#vector of median income in socal
+socal_county_median_inc <- socal_set[, c(8)]
+socal_county_median_inc
+
+cor(socal_county_bach_prop, socal_county_median_inc)
+
+## correlation between median income and Proportion of Bachelor's Degree in each county: 0.8832506
 ```
 
 :::{.a-panel}
-Type Response Here.
+correlation between median income and Proportion of Bachelor's Degree in each county: 0.8832506
 
-Delete if necessary.
 ::::
 
 ## Part 2
@@ -197,59 +215,52 @@ Delete if necessary.
 Recreate the matrices below.  Please use the same names as those shown.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+ #sqr_even_mat
+sqr_even_mat.data <- c(2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32) #inputting the values
+sqr_even_mat <- matrix(sqr_even_mat.data,nrow=4,ncol=4,byrow=TRUE)
+sqr_even_mat
+
+#two_col_mat
+two_col_mat.data <- c(8,6,16,14,24,22,32,30) #inputting the values
+two_col_mat <- matrix(two_col_mat.data,nrow=4,ncol=2,byrow=TRUE)
+two_col_mat
+
 ```
-
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
 
 ### Q3
 
 Multiply the two matrices `two_col_mat` and `sqr_even_mat`.  Store the result in a variable named `prod_mat`.  Print the matrix to check.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+prod_mat <- sqr_even_mat %*% two_col_mat
+prod_mat
 ```
-
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
 
 ### Q4
 
 Let's return to the two original matrices, `sqr_even_mat` and `two_col_mat`. Bind the columns together, resulting in a matrix with 6 columns.  Place `sqr_even_mat` on the left and `two_col_mat` on the right. Store the result as `six_col_mat`
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+six_col_mat <- cbind(sqr_even_mat,two_col_mat)
+six_col_mat
+
 ```
-
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
 
 ### Q5
 
 Next we want to bind the rows.  What is wrong with the following code?
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+rbind(sqr_even_mat, two_col_mat)
+#we cannot combine the two as there needs to be an equal number of columns to combine two matrices by row
+#we need to use the plyr package in order to combine two matrices with different columns
+install.packages('plyr')
+plyr::rbind.fill.matrix(sqr_even_mat, two_col_mat)
+
 ```
 
 :::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
+a package is needed to fill the "empty columns" with NA if we want to bind matrices by row with uneven column numbers. 
 ::::
 
 ## Part 3
