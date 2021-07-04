@@ -403,14 +403,37 @@ BL_BD_50_table
 Using the new variables, find the mean `body_mass_g` for each $50^{th}$ percentile indicator variable `bill_length_mm` and `bill_depth_mm`.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+# does this mean find the mean body mass above and below for each?
+# using this as a guide https://stackoverflow.com/questions/29724286/calculate-a-mean-by-criteria-in-r
+
+install.packages("dplyr")
+library(dplyr)
+new_penguin2  %>% group_by(BL_in_50_percentile) %>%
+  summarise(mean=mean(body_mass_g))
+
+new_penguin2  %>% group_by(BD_in_50_percentile) %>%
+  summarise(mean=mean(body_mass_g))
+
+new_penguin2  %>% group_by(BL_in_50_percentile, BD_in_50_percentile) %>% 
+  summarise(mean=mean(body_mass_g))
+
+
 ```
 
 :::{.a-panel}
-Type Response Here.
+Mean Body Mass Average for:
 
-Delete if necessary.
+Beak Length in top 50th Percentile: 4639.072
+Beak Length Below 50th Percentile: 3772.440	
+Beak Depth in top 50th Percentile: 3835.756
+Beak Depth Below 50th Percentile: 4603.727		
+
+BL Below BD Below:	3683.173		
+BL Below BD Top 50:	3813.158		
+BL Top 50	BD Below:	5042.890		
+BL Top 50	BD Top 50:	3880.172	
+
+(at this point i'm pretty sure i overthought the question)
 ::::
 
 ### Q10
