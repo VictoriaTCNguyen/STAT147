@@ -61,6 +61,8 @@ socal <- c("San Luis Obispo County, California", "Kern County, California",
 ```
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
+
+#loading data
 ca_pop_table2 <- read.csv("/Users/victoria/Downloads/ca_pop.csv")
 head(Pop_size)
 ca_pop_table2
@@ -76,6 +78,10 @@ library("haven")                                      # Load haven package
 
 ca_med_inc_table <- read_sav("/Users/victoria/Downloads/ca_med_inc.sav")                         # Reading data
 ca_med_inc_table 
+
+#merging as 1 frame
+merged_frame1 <- merge(ca_edu_table2, ca_pop_table2 )
+merged_frame2 <- merge(merged_frame1, ca_med_inc_table)
 ```
 
 :::{.a-panel}
@@ -92,8 +98,8 @@ Delete if necessary.
 Create a new vector indicating how many individuals have received a Bachelor's Degree for each county.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+sum_bach_county <- rowSums(merged_frame2[, c(2, 3, 4, 5, 6)])
+sum_bach_county
 ```
 
 :::{.a-panel}
@@ -107,12 +113,19 @@ Delete if necessary.
 How many individuals have a Bachelor's degree in Southern California?
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+#use socal subset
+subset(merged_frame2, merged_frame2$num_1 > 0) 
+ socal_set <- subset(merged_frame2, merged_frame2$NAME %in% socal) #creates subset using names from socal vector
+ 
+ sum_bach_socal_county <- rowSums(socal_set[, c(2, 3, 4, 5, 6)])
+   sum_bach_socal_county
+   
+socal_bach_sum <- sum(sum_bach_socal_county)
+socal_bach_sum
 ```
 
 :::{.a-panel}
-Type Response Here.
+5597031 bachelors degrees in southern california
 
 Delete if necessary.
 ::::
