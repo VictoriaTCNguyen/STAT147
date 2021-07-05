@@ -1,15 +1,18 @@
 ---
-title: 'STAT 147 | HW'
-subtitle: 'Week 2 HW'
+title: "STAT 147 | HW"
 author: "Victoria Nguyen"
+subtitle: Week 2 HW
 output:
   html_document:
     theme: default
-    toc: true
+    toc: yes
     toc_depth: 3
-    number_sections: false
+    number_sections: no
     toc_float:
-      collapsed: true
+      collapsed: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
 ---
 
 ```{r setup, include=FALSE}
@@ -63,19 +66,24 @@ socal <- c("San Luis Obispo County, California", "Kern County, California",
 ```
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-
+install.packages('plyr', repos = "http://cran.us.r-project.org")
 #loading data
-ca_pop_table2 <- read.csv("/Users/victoria/Downloads/ca_pop.csv")
-head(Pop_size)
-ca_pop_table2
+#ca_pop_table2 <- read.csv("/Users/victoria/Downloads/ca_pop.csv")
+#head(Pop_size)
 
-install.packages("readxl")
+ca_pop_table2 <- read.csv("/Users/victoria/Downloads/ca_pop.csv", 
+                header= TRUE) #use header = true to import top line as headers
+print(ca_pop_table2)
+
+#install.packages("readxl")
+install.packages('readxl', repos = "https://readxl.tidyverse.org/")
 library("readxl")
 ca_edu_table2 <- read_excel("/Users/victoria/Downloads/ca_edu.xlsx", sheet = 1)
 ca_edu_table2
 
 #install haven
-install.packages("haven")                             # Install haven package
+install.packages('haven', repos = "http://cran.us.r-project.org")
+#install.packages("haven")                             # Install haven package
 library("haven")                                      # Load haven package
 
 ca_med_inc_table <- read_sav("/Users/victoria/Downloads/ca_med_inc.sav")       # Reading data
@@ -85,12 +93,6 @@ ca_med_inc_table
 merged_frame1 <- merge(ca_edu_table2, ca_pop_table2 )
 merged_frame2 <- merge(merged_frame1, ca_med_inc_table)
 ```
-
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
 
 
 #### Part B
@@ -247,10 +249,10 @@ six_col_mat
 Next we want to bind the rows.  What is wrong with the following code?
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-rbind(sqr_even_mat, two_col_mat)
+#rbind(sqr_even_mat, two_col_mat)
 #we cannot combine the two as there needs to be an equal number of columns to combine two matrices by row
 #we need to use the plyr package in order to combine two matrices with different columns
-install.packages('plyr')
+install.packages('plyr', repos = "http://cran.us.r-project.org")
 plyr::rbind.fill.matrix(sqr_even_mat, two_col_mat)
 
 ```
@@ -264,7 +266,8 @@ a package is needed to fill the "empty columns" with NA if we want to bind matri
 The next questions will involve the `penguins` data set from the `palmerpenguins` package.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-install.packages("palmerpenguins")
+#install.packages("palmerpenguins")
+install.packages('palmerpenguins', repos = "https://cran.r-project.o")
 library(palmerpenguins)
 #eliminate observations with missing values
 new_penguin <- na.omit(penguins)
@@ -402,7 +405,9 @@ Using the new variables, find the mean `body_mass_g` for each $50^{th}$ percenti
 # does this mean find the mean body mass above and below for each?
 # using this as a guide https://stackoverflow.com/questions/29724286/calculate-a-mean-by-criteria-in-r
 
-install.packages("dplyr")
+
+#install.packages("dplyr")
+install.packages('dplyr', repos = "http://cran.us.r-project.org")
 library(dplyr)
 new_penguin2  %>% group_by(BL_in_50_percentile) %>%
   summarise(mean=mean(body_mass_g))
@@ -510,7 +515,8 @@ Torgersen: 1.001905
 The `readr` package has two separate functions to read data that are separated by white space (space, tab, etc...): `read_table` and `read_table2`. Read the help documentation for the functions and explain why you may want to use one function over the other function.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-install.packages("readr")
+#install.packages("readr")
+install.packages('readr', repos = "http://cran.us.r-project.org")
 library("readr")
 help("readr")
 ```
@@ -540,12 +546,11 @@ sapply is similar to lapply but returns a VECTOR or MATRIX.
 
 In linear algebra, the Kronecker product creates block matrices from two matrices. The Kronecker product multiplies each element of the first matrix the entire second matrix. What is the function in R to find the Kronecker product?
 
-```{r, class.output = "bg-success", class.source = "bg-success"}
-
+:::{.a-panel}
 kronecker(X, Y, FUN = "*", make.dimnames = FALSE)
 X %x% Y
 
-```
+::::
 
 ### Q14
 
@@ -561,7 +566,7 @@ Fix the code.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
 #install package
-install.packages("palmerpenguins")
+install.packages('palmerpenguins', repos = "https://cran.r-project.o")
 
 #load package
 library(palmerpenguins)
