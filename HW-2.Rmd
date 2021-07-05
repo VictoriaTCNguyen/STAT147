@@ -510,29 +510,30 @@ Torgersen: 1.001905
 The `readr` package has two separate functions to read data that are separated by white space (space, tab, etc...): `read_table` and `read_table2`. Read the help documentation for the functions and explain why you may want to use one function over the other function.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+install.packages("readr")
+library("readr")
+help("readr")
 ```
 
 :::{.a-panel}
-Type Response Here.
 
-Delete if necessary.
+One would want to use read_table2() when they would like to customize the length of lines and 
+the width of the white space between columns. 
+
+read_table() is better when the user would like the white space and line length to be chosen for them automatically. this may be useful when there are multiple tables being read and the user wants the presentation to be as consistent as possible. 
+
 ::::
 
 ### Q12
 
 Both `lapply` and `sapply` functions belong to the same family of `*apply` functions where a user specified function is applied to an R object. What is the difference between the `sapply` and `lapply` function.
 
-```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
-```
-
 :::{.a-panel}
-Type Response Here.
 
-Delete if necessary.
+lapply returns a LIST with the same/similar length as the original list object (list, vector, or data frame) that has been inputted.
+
+sapply is similar to lapply but returns a VECTOR or MATRIX. 
+
 ::::
 
 ### Q13
@@ -540,29 +541,18 @@ Delete if necessary.
 In linear algebra, the Kronecker product creates block matrices from two matrices. The Kronecker product multiplies each element of the first matrix the entire second matrix. What is the function in R to find the Kronecker product?
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+
+kronecker(X, Y, FUN = "*", make.dimnames = FALSE)
+X %x% Y
+
 ```
-
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
 
 ### Q14
 
 What function do you use to view what files are in your working directory?
 
-```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
-```
-
 :::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
+list.files()
 ::::
 
 ### Q15
@@ -570,12 +560,12 @@ Delete if necessary.
 Fix the code.
 
 ```{r, class.output = "bg-success", class.source = "bg-success"}
-## Type Code Here
-## Delete chunk if necessary
+#install package
+install.packages("palmerpenguins")
+
+#load package
+library(palmerpenguins)
+
+tapply(new_penguin$bill_length_mm, list(new_penguin$island), mean)
+#needed to use the new_penguins data frame, which removed rows with empty cells. 
 ```
-
-:::{.a-panel}
-Type Response Here.
-
-Delete if necessary.
-::::
