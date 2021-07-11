@@ -1,0 +1,743 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={STAT 147 \textbar{} HW},
+  pdfauthor={Victoria Nguyen},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+
+\title{STAT 147 \textbar{} HW}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Week 3 HW}
+\author{Victoria Nguyen}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{instructions}{%
+\section{\texorpdfstring{\textbf{Instructions}}{Instructions}}\label{instructions}}
+
+The goal of this assignment is to continue our exploration of loops,
+while loops, and if and else statements. Please use the RMD file
+\texttt{FIRST\_LAST\_HW\_03.Rmd} to answer your questions. Delete code
+or answer chunks as necessary. You will submit both the RMD file and the
+corresponding HTML file from the knitted document.
+
+Note: you may need to search the internet to find answers for some of
+the questions.
+
+You will be graded as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  Does your R chunks run (some errors are acceptable in this
+  assignment)?
+\item
+  Have you completed the assignment in its entirety?
+\item
+  Have you followed the instructions carefully?
+\item
+  Have you responded to the questions correctly?
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{grading}{%
+\paragraph{Grading}\label{grading}}
+
+\begin{itemize}
+\item
+  \textbf{(20 pts)} Have you completed the assignment in its entirety?
+\item
+  \textbf{(20 pts)} Are your responses correct for the subset of
+  randomly graded questions?
+\item
+  \textbf{(5 pts)} CODE DOCUMENTATION. Add comments to nearly every line
+  explaining what the line of code is doing.
+\item
+  \textbf{(5 pts)} Submitted Knitted Document (HTML File)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{questions}{%
+\section{Questions}\label{questions}}
+
+\hypertarget{part-1}{%
+\subsection{Part 1}\label{part-1}}
+
+\hypertarget{q1}{%
+\subsubsection{Q1}\label{q1}}
+
+\hypertarget{part-a}{%
+\paragraph{Part A}\label{part-a}}
+
+Is to be completed in Lab 3B. Below is a description of what is
+necessary from the lab.
+
+\begin{itemize}
+\item
+  Generating a vector filled with Fibonacci Numbers.
+\item
+  Generating a vector filled with Triangular Numbers.
+\item
+  Generating a vector filled with Tetrahedral Numbers.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Fibonacci}
+\NormalTok{fibonacci <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)               }\CommentTok{#initialize the first two numbers: 0 & 1 in a }
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in}\NormalTok{ (}\DecValTok{3}\OperatorTok{:}\DecValTok{50}\NormalTok{))\{                 }\CommentTok{#for loop for the 3rd to 50th numbers in the sequence}
+\NormalTok{  fibonacci[i] <-}\StringTok{ }\NormalTok{(fibonacci[i}\DecValTok{-1}\NormalTok{]}\OperatorTok{+}\NormalTok{fibonacci[i}\DecValTok{-2}\NormalTok{]) }\CommentTok{#each number is found using the two before it}
+\NormalTok{\}}
+\NormalTok{fibonacci }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]          0          1          1          2          3          5
+##  [7]          8         13         21         34         55         89
+## [13]        144        233        377        610        987       1597
+## [19]       2584       4181       6765      10946      17711      28657
+## [25]      46368      75025     121393     196418     317811     514229
+## [31]     832040    1346269    2178309    3524578    5702887    9227465
+## [37]   14930352   24157817   39088169   63245986  102334155  165580141
+## [43]  267914296  433494437  701408733 1134903170 1836311903 2971215073
+## [49] 4807526976 7778742049
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Triangular}
+
+\NormalTok{Triangular <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{) }
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ (}\DecValTok{2}\OperatorTok{:}\DecValTok{40}\NormalTok{))}
+\NormalTok{  Triangular[i] <-}\StringTok{ }\NormalTok{(i }\OperatorTok{*}\StringTok{ }\NormalTok{(i }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{ )) }\OperatorTok{/}\StringTok{ }\DecValTok{2}
+  
+\CommentTok{#Returns as a vector}
+\NormalTok{  Triangular}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]   1   3   6  10  15  21  28  36  45  55  66  78  91 105 120 136 153 171 190
+## [20] 210 231 253 276 300 325 351 378 406 435 465 496 528 561 595 630 666 703 741
+## [39] 780 820
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#Tetrahedral}
+
+\NormalTok{x <-}\StringTok{ }\DecValTok{1}
+\NormalTok{z <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{39}\NormalTok{)}
+\NormalTok{tetrahedral <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(z))\{}
+\NormalTok{  tetrahedral[i] <-}\StringTok{ }\NormalTok{(x }\OperatorTok{*}\StringTok{ }\NormalTok{(x }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{(x }\OperatorTok{+}\StringTok{ }\DecValTok{2}\NormalTok{)) }\OperatorTok{/}\DecValTok{6}
+\NormalTok{  x <-}\StringTok{ }\NormalTok{x }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{\}}
+\NormalTok{tetrahedral}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]     1     4    10    20    35    56    84   120   165   220   286   364
+## [13]   455   560   680   816   969  1140  1330  1540  1771  2024  2300  2600
+## [25]  2925  3276  3654  4060  4495  4960  5456  5984  6545  7140  7770  8436
+## [37]  9139  9880 10660
+\end{verbatim}
+
+\hypertarget{part-b}{%
+\paragraph{Part B}\label{part-b}}
+
+\hypertarget{section}{%
+\subparagraph{1.}\label{section}}
+
+Create a vector containing only the even numbers from the Fibonacci
+sequence. Hint: Use loops, if else statements and divide each number by
+2 using \texttt{\%\%}. Find the sum of all the even Fibonacci numbers?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fibonacci_even <-}\StringTok{ }\KeywordTok{c}\NormalTok{() }\CommentTok{#initialize empty vector}
+\NormalTok{n <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ (}\DecValTok{1}\OperatorTok{:}\DecValTok{50}\NormalTok{) ) \{}
+\NormalTok{    x <-}\StringTok{ }\DecValTok{0}
+    \CommentTok{#even}
+    \ControlFlowTok{if}\NormalTok{ (fibonacci[n]}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0}\NormalTok{)}
+\NormalTok{    \{}
+\NormalTok{        x<-fibonacci[n]}
+\NormalTok{    \}}
+    \CommentTok{#odd}
+    \ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\NormalTok{        fibonacci_even<-}\KeywordTok{c}\NormalTok{(fibonacci_even, x);}
+\NormalTok{        n <-}\StringTok{ }\NormalTok{n }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{;}
+        
+\NormalTok{\}}
+\NormalTok{fibonacci_even}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]          2          8         34        144        610       2584
+##  [7]      10946      46368     196418     832040    3524578   14930352
+## [13]   63245986  267914296 1134903170 4807526976
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(fibonacci_even)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6293134512
+\end{verbatim}
+
+Sum of the even fibonacci numbers from the first 50: 6293134512
+
+\hypertarget{section-1}{%
+\subparagraph{2.}\label{section-1}}
+
+Create a vector containing only the even numbers from the Triangular
+sequence. Hint: Use loops, if else statements and divide each number by
+2 using \texttt{\%\%}. Find the sum of all the even Triangular numbers?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Tri_even <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\NormalTok{n <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ (}\DecValTok{1}\OperatorTok{:}\DecValTok{40}\NormalTok{) ) \{}
+\NormalTok{    x <-}\StringTok{ }\DecValTok{0}
+    \CommentTok{#even}
+    \ControlFlowTok{if}\NormalTok{ (Triangular[n]}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0}\NormalTok{)}
+\NormalTok{    \{}
+\NormalTok{        x<-Triangular[n]}
+\NormalTok{    \}}
+    \ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\NormalTok{        Tri_even<-}\KeywordTok{c}\NormalTok{(Tri_even, x);}
+\NormalTok{        n <-}\StringTok{ }\NormalTok{n }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{;}
+        
+\NormalTok{\}}
+\NormalTok{Tri_even}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]   6  10  28  36  66  78 120 136 190 210 276 300 378 406 496 528 630 666 780
+## [20] 820
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(Tri_even)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 6160
+\end{verbatim}
+
+Sum of the even triangular numbers: 6160
+
+\hypertarget{section-2}{%
+\subparagraph{3.}\label{section-2}}
+
+Create a vector containing only the even numbers from the Tetrahedral
+sequence. Hint: Use loops, if else statements and divide each number by
+2 using \texttt{\%\%}. Find the sum of all the even Tetrahedral numbers?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tetrahedral_even <-}\StringTok{ }\KeywordTok{c}\NormalTok{()}
+\NormalTok{n <-}\StringTok{ }\DecValTok{1}\NormalTok{;}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ (}\DecValTok{1}\OperatorTok{:}\DecValTok{39}\NormalTok{) ) \{}
+\NormalTok{    x <-}\StringTok{ }\DecValTok{0}
+    \CommentTok{#even}
+    \ControlFlowTok{if}\NormalTok{ (tetrahedral[n]}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0}\NormalTok{)}
+\NormalTok{    \{}
+\NormalTok{        x<-tetrahedral[n]}
+\NormalTok{    \}}
+    \ControlFlowTok{if}\NormalTok{ (x }\OperatorTok{!=}\StringTok{ }\DecValTok{0}\NormalTok{)}
+\NormalTok{        tetrahedral_even<-}\KeywordTok{c}\NormalTok{(tetrahedral_even, x);}
+\NormalTok{        n <-}\StringTok{ }\NormalTok{n }\OperatorTok{+}\StringTok{ }\DecValTok{1}\NormalTok{;}
+        
+\NormalTok{\}}
+\NormalTok{tetrahedral_even}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]     4    10    20    56    84   120   220   286   364   560   680   816
+## [13]  1140  1330  1540  2024  2300  2600  3276  3654  4060  4960  5456  5984
+## [25]  7140  7770  8436  9880 10660
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{sum}\NormalTok{(tetrahedral_even)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 85430
+\end{verbatim}
+
+sum of even tetrahedral numbers = 85430
+
+\hypertarget{part-2}{%
+\subsection{Part 2}\label{part-2}}
+
+Use the following matrix for Part 2 questions:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{10}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+##  [1,]    1   11   21   31   41   51   61   71   81    91
+##  [2,]    2   12   22   32   42   52   62   72   82    92
+##  [3,]    3   13   23   33   43   53   63   73   83    93
+##  [4,]    4   14   24   34   44   54   64   74   84    94
+##  [5,]    5   15   25   35   45   55   65   75   85    95
+##  [6,]    6   16   26   36   46   56   66   76   86    96
+##  [7,]    7   17   27   37   47   57   67   77   87    97
+##  [8,]    8   18   28   38   48   58   68   78   88    98
+##  [9,]    9   19   29   39   49   59   69   79   89    99
+## [10,]   10   20   30   40   50   60   70   80   90   100
+\end{verbatim}
+
+\hypertarget{q2}{%
+\subsubsection{Q2}\label{q2}}
+
+The \texttt{colSums} function will add all the values in each column of
+a matrix. Instead of using the \texttt{colSums} function, write a loop
+that will produce the same results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#initialize 10 x 10 matrix}
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{10}\NormalTok{)}
+
+\CommentTok{#loop for sums across 10 columns}
+\NormalTok{colSums_loop <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\DataTypeTok{mode =} \StringTok{"numeric"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{  colSums_loop[i] <-}\StringTok{ }\KeywordTok{sum}\NormalTok{(x[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, i])}
+\NormalTok{\}}
+\NormalTok{colSums_loop}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  55 155 255 355 455 555 655 755 855 955
+\end{verbatim}
+
+\hypertarget{q3}{%
+\subsubsection{Q3}\label{q3}}
+
+The \texttt{rowMeans} function will compute the mean for each row in a
+matrix. Instead of using the \texttt{rowMeans} function, write a loop
+that will produce the same results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#get mean across 10 rows, uses same x as previous question}
+\NormalTok{rowMeans_loop <-}\StringTok{ }\KeywordTok{vector}\NormalTok{(}\DataTypeTok{mode =} \StringTok{"numeric"}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{  rowMeans_loop[i] <-}\StringTok{ }\KeywordTok{mean}\NormalTok{(x[i, }\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{])}
+\NormalTok{\}}
+\NormalTok{rowMeans_loop}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 46 47 48 49 50 51 52 53 54 55
+\end{verbatim}
+
+\hypertarget{q4}{%
+\subsubsection{Q4}\label{q4}}
+
+Create a logical \(10 \times 10\) matrix indicating whether each element
+in matrix \texttt{x} is either even (TRUE) or odd (FALSE).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DecValTok{1}\OperatorTok{:}\DecValTok{100}\NormalTok{, }\DataTypeTok{nrow =} \DecValTok{10}\NormalTok{)}
+\NormalTok{x}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+##  [1,]    1   11   21   31   41   51   61   71   81    91
+##  [2,]    2   12   22   32   42   52   62   72   82    92
+##  [3,]    3   13   23   33   43   53   63   73   83    93
+##  [4,]    4   14   24   34   44   54   64   74   84    94
+##  [5,]    5   15   25   35   45   55   65   75   85    95
+##  [6,]    6   16   26   36   46   56   66   76   86    96
+##  [7,]    7   17   27   37   47   57   67   77   87    97
+##  [8,]    8   18   28   38   48   58   68   78   88    98
+##  [9,]    9   19   29   39   49   59   69   79   89    99
+## [10,]   10   20   30   40   50   60   70   80   90   100
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#empty 10 x 10 matrix}
+\NormalTok{x_logical <-}\StringTok{ }\KeywordTok{matrix}\NormalTok{(}\DataTypeTok{nrow =} \DecValTok{10}\NormalTok{, }\DataTypeTok{ncol =} \DecValTok{10}\NormalTok{ ) }
+\NormalTok{n <-}\StringTok{ }\DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(x) ) \{}
+\NormalTok{    num <-}\StringTok{ }\NormalTok{x[i]}
+    \CommentTok{#even}
+    \ControlFlowTok{if}\NormalTok{ (num}\OperatorTok{%%}\DecValTok{2}\OperatorTok{==}\DecValTok{0}\NormalTok{)}
+\NormalTok{    \{}
+\NormalTok{        x_logical[n] =}\StringTok{ "even"}
+\NormalTok{        n=n}\OperatorTok{+}\DecValTok{1}
+\NormalTok{    \}}
+    \CommentTok{#odd}
+    \ControlFlowTok{else}
+\NormalTok{    \{}
+\NormalTok{      x_logical[n] =}\StringTok{ "odd"}
+\NormalTok{      n=n}\OperatorTok{+}\DecValTok{1}
+\NormalTok{    \}}
+        
+\NormalTok{\}}
+
+\NormalTok{x_logical}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       [,1]   [,2]   [,3]   [,4]   [,5]   [,6]   [,7]   [,8]   [,9]   [,10] 
+##  [1,] "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd" 
+##  [2,] "even" "even" "even" "even" "even" "even" "even" "even" "even" "even"
+##  [3,] "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd" 
+##  [4,] "even" "even" "even" "even" "even" "even" "even" "even" "even" "even"
+##  [5,] "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd" 
+##  [6,] "even" "even" "even" "even" "even" "even" "even" "even" "even" "even"
+##  [7,] "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd" 
+##  [8,] "even" "even" "even" "even" "even" "even" "even" "even" "even" "even"
+##  [9,] "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd"  "odd" 
+## [10,] "even" "even" "even" "even" "even" "even" "even" "even" "even" "even"
+\end{verbatim}
+
+\hypertarget{part-3}{%
+\subsection{Part 3}\label{part-3}}
+
+\hypertarget{q5}{%
+\subsubsection{Q5}\label{q5}}
+
+Write a for loop that iterates over the column names of the
+\texttt{mtcars} data set and prints the name with the number of
+characters in the column name in parentheses.
+
+Example output: \texttt{"mpg\ (3)"}.
+
+Use the following functions, and any others you wish: \texttt{paste} and
+\texttt{nchar} functions.
+
+Note: \texttt{nchar} function counts how many characters are in a
+string.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(mtcars)}
+
+\CommentTok{#initialize the two variables}
+\NormalTok{col_names <-}\StringTok{ }\KeywordTok{colnames}\NormalTok{(mtcars) }\CommentTok{# listn of all col names}
+\NormalTok{names_count <-}\StringTok{ }\KeywordTok{nchar}\NormalTok{(col_names) }\CommentTok{#counts chats in col name}
+
+\CommentTok{#goes down col_names, pastes name then character count}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq_along}\NormalTok{(col_names))\{}
+    \KeywordTok{print}\NormalTok{(}\KeywordTok{paste}\NormalTok{(col_names[i], }\StringTok{" ("}\NormalTok{,(names_count[i]), }\StringTok{")"}\NormalTok{,}\DataTypeTok{sep =} \StringTok{""}\NormalTok{))}
+
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "mpg (3)"
+## [1] "cyl (3)"
+## [1] "disp (4)"
+## [1] "hp (2)"
+## [1] "drat (4)"
+## [1] "wt (2)"
+## [1] "qsec (4)"
+## [1] "vs (2)"
+## [1] "am (2)"
+## [1] "gear (4)"
+## [1] "carb (4)"
+\end{verbatim}
+
+\hypertarget{q6}{%
+\subsubsection{Q6}\label{q6}}
+
+Use a while loop to investigate the number of terms required until the
+product of
+
+1⋅2⋅3⋅4⋅\ldots{}
+
+reaches above 1 million. How many elements is needed to reach 1 million.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{#initialize beginning values, gets factorial of 1}
+\NormalTok{product <-}\StringTok{ }\DecValTok{0}
+\NormalTok{a <-}\StringTok{ }\DecValTok{1}
+\NormalTok{b <-}\StringTok{ }\DecValTok{1}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ b)}
+\ControlFlowTok{while}\NormalTok{ (product }\OperatorTok{<=}\StringTok{ }\DecValTok{1000000}\NormalTok{) }\CommentTok{#keeps going until it hits the first product above 1,000,000}
+\NormalTok{  \{}
+\NormalTok{      product[i] <-}\StringTok{ }\KeywordTok{factorial}\NormalTok{(a}\OperatorTok{+}\NormalTok{b}\DecValTok{-1}\NormalTok{)}\OperatorTok{/}\KeywordTok{factorial}\NormalTok{(a}\DecValTok{-1}\NormalTok{)}
+      
+      \CommentTok{#adds element if product hasn't reached 1,000,000}
+      \ControlFlowTok{if}\NormalTok{ (product }\OperatorTok{<=}\StringTok{ }\DecValTok{1000000}\NormalTok{) }
+\NormalTok{      b <-}\StringTok{ }\NormalTok{b }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{  \}}
+\NormalTok{product}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3628800
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{b}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 10
+\end{verbatim}
+
+10 elements are needed to reach the first value greater than or equal to
+1 million. The first product after breaking 1,000,000 is 3,628,800
+
+\hypertarget{q7}{%
+\subsubsection{Q7}\label{q7}}
+
+Write a while loop that prints out standard random normal numbers (use
+\texttt{rnorm}) but stops (breaks) if you get a number bigger than 1.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{245424}\NormalTok{)}
+
+\NormalTok{r <-}\StringTok{ }\DecValTok{0}
+\ControlFlowTok{while}\NormalTok{(r}\OperatorTok{<=}\DecValTok{1}\NormalTok{) }\CommentTok{#stops at first value above 1}
+\NormalTok{\{}
+\NormalTok{  r <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{ (}\DataTypeTok{n =} \DecValTok{1}\NormalTok{)}
+  \KeywordTok{print}\NormalTok{(r) }
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.5610392
+## [1] -1.913313
+## [1] -2.041071
+## [1] 1.838673
+\end{verbatim}
+
+\hypertarget{q8}{%
+\subsubsection{Q8}\label{q8}}
+
+Using a while loop, generate a 100 positive values from a standard
+normal distribution. Your vector should look similar to the vector
+below.
+
+\begin{verbatim}
+##   [1] 1.657517033 0.187654732 0.420571550 2.400824012 1.778782240 0.139411590
+##   [7] 2.826552130 0.194471297 0.947344730 0.977882326 1.814398672 0.003000291
+##  [13] 0.728592024 0.949425915 1.101056596 0.041289591 1.009828176 0.550637293
+##  [19] 0.014740967 0.111447329 0.572745045 0.800523955 0.734825521 0.865536592
+##  [25] 0.490190027 0.623598804 2.080232886 0.204695714 1.997787659 0.575125862
+##  [31] 0.333256358 0.497321518 0.736505236 0.815510063 1.095037944 0.503035171
+##  [37] 1.037377878 0.111853558 0.166957790 0.465937984 0.483296281 1.020587002
+##  [43] 0.417957347 0.546884173 0.512819917 0.205997706 0.640649401 1.558822629
+##  [49] 0.140238681 1.406808863 1.592408776 1.567603000 0.524083433 0.179271968
+##  [55] 0.185835934 0.347468756 0.736258400 1.024982780 0.183575592 1.325723900
+##  [61] 0.235419372 1.020786063 1.100859227 0.437973656 1.175132331 1.781096814
+##  [67] 0.623395832 0.019826157 0.843880907 1.011377922 0.980958225 0.067721184
+##  [73] 0.260010939 0.857796852 1.529206187 1.078207047 1.646897850 0.143122481
+##  [79] 0.301934782 0.232940022 0.646350604 1.906270548 2.127012382 0.336091477
+##  [85] 0.583577703 0.432255653 0.438776811 0.927996234 0.521831032 1.896265090
+##  [91] 1.130087197 1.204216202 0.806713542 0.773139443 0.653696722 0.325332444
+##  [97] 0.744729166 0.133474009 0.245825896 0.709354972
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{pos_}\DecValTok{100}\NormalTok{ <-}\StringTok{ }\KeywordTok{c}\NormalTok{() }\CommentTok{#initialize empty vector}
+\NormalTok{i <-}\StringTok{ }\DecValTok{1}
+\ControlFlowTok{while}\NormalTok{ (i }\OperatorTok{<=}\StringTok{ }\DecValTok{100}\NormalTok{) }\CommentTok{#limit to 100 }
+\NormalTok{\{}
+\NormalTok{  p =}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{1}\NormalTok{)}
+  \ControlFlowTok{if}\NormalTok{ (p}\OperatorTok{>}\DecValTok{0}\NormalTok{) }\CommentTok{#only keep positive values}
+\NormalTok{  \{}
+\NormalTok{    pos_}\DecValTok{100}\NormalTok{[i] <-}\StringTok{ }\NormalTok{p}
+\NormalTok{    i =}\StringTok{ }\NormalTok{i }\OperatorTok{+}\StringTok{ }\DecValTok{1}
+\NormalTok{  \}}
+\NormalTok{\}}
+\NormalTok{pos_}\DecValTok{100}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] 1.188034197 0.949146825 0.129378372 0.553509081 0.099015507 0.853672570
+##   [7] 0.593074006 1.520092833 0.284597952 0.115915576 0.666915426 0.643007739
+##  [13] 0.927475409 0.307312538 0.255772081 0.415701983 0.159390943 1.324830716
+##  [19] 0.706174833 0.004279386 0.355707127 1.274162791 0.888278360 0.701241808
+##  [25] 0.496836864 0.324962472 1.065868928 1.000610496 0.151053538 0.773000780
+##  [31] 1.934408840 0.446479191 1.459472006 1.733671891 0.751582218 0.144590900
+##  [37] 0.395555559 0.091011968 0.764085045 0.271785926 0.950612761 0.735703341
+##  [43] 0.586689384 0.872917942 0.303641234 1.021710236 1.727758369 0.409899642
+##  [49] 0.307786673 1.555953707 1.858755311 0.712110896 0.810071270 0.146760115
+##  [55] 1.191032546 2.541655278 0.359472436 0.617059959 0.010177544 0.429283415
+##  [61] 1.339972469 0.675018365 0.410424408 1.444126083 0.903884746 1.089255851
+##  [67] 2.020245336 0.390945638 1.192977184 0.913012599 0.421856824 0.599863919
+##  [73] 0.933449834 0.064722510 0.084224556 1.405517318 0.150032758 0.747948255
+##  [79] 1.252908259 1.284391595 0.422438686 1.519765150 1.249504088 0.796970332
+##  [85] 1.890234120 0.914327873 1.185136623 0.591065948 0.789479860 0.507887606
+##  [91] 0.115853587 2.401901898 0.642941379 1.314198182 1.295976725 1.362782129
+##  [97] 0.660369723 0.836101910 1.650260757 0.671361501
+\end{verbatim}
+
+\hypertarget{part-4}{%
+\subsection{Part 4}\label{part-4}}
+
+\hypertarget{q9}{%
+\subsubsection{Q9}\label{q9}}
+
+Watch the following video
+\url{https://www.youtube.com/watch?v=Mv9NEXX1VHc}:
+
+What is recursion?
+
+Recursion is when data can be passed through a function and passed
+through itself until conditions for termination (base condition) are
+met, in which all data up until putting it out will be returned.
+
+\hypertarget{q10}{%
+\subsubsection{Q10}\label{q10}}
+
+Watch the following video
+\url{https://www.youtube.com/watch?v=HXNhEYqFo0o}:
+
+What is the difference between loops and recursion?
+
+A loop will continue with the action until it reaches the condition for
+``ending the list'', meanwhile recursion will return data to the
+function if the base condition to terminate isn't met.
+
+\end{document}
