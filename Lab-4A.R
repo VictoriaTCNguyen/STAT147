@@ -1,0 +1,10 @@
+df1 <- read.csv("/Users/victoria/Downloads/df1.csv")
+df2 <- read.csv("/Users/victoria/Downloads/df2.csv")
+df3 <- merge(df1,df2,by="id")
+mean(df3$x)
+var(df3$y)
+attach(df3)
+plot(df3$x,df3$y, main="df3 scatterplot",
+     xlab="x ", ylab="y ")
+length(df3$x)
+length(df3$y)
