@@ -1,0 +1,431 @@
+---
+title: 'STAT 147 | HW'
+subtitle: 'Week 4 HW'
+author: "Victoria Nguyen"
+output:
+  html_document:
+    theme: default
+    toc: true
+    toc_depth: 3
+    number_sections: false
+    toc_float:
+      collapsed: true
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+library(tidyverse)
+install.packages("PairedData", repos = "http://cran.us.r-project.org")
+```
+
+```{css, echo = FALSE}
+pre, code {
+  white-space:pre !important;
+  overflow-x:scroll !important}
+
+.a-panel {
+	background-color: rgba(49, 126, 172, 0.1);
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+	box-shadow: 0px 0px 0px 0px, 0px 6px 12px rgba(0, 0, 0, 0.2);
+	border-bottom: 5px solid #317EAC;
+}
+
+```
+
+------------------------------------------------------------------------
+
+# **Instructions**
+
+The goal of this assignment is to continue our exploration with plots, hypothesis testing, and linear regression.  Please use the RMD file `FIRST_LAST_HW_04.Rmd` to answer your questions. Delete code or answer chunks as necessary. You will submit both the RMD file and the corresponding HTML file from the knitted document.
+
+Note: you may need to search the internet to find answers for some of the questions.
+
+You will be graded as follows:
+
+-   Does your R chunks run (some errors are acceptable in this assignment)?
+-   Have you completed the assignment in its entirety?
+-   Have you followed the instructions carefully?
+-   Have you responded to the questions correctly?
+
+------------------------------------------------------------------------
+
+#### Grading
+
+-   **(20 pts)** Have you completed the assignment in its entirety?
+
+-   **(20 pts)** Are your responses correct for the subset of randomly graded questions?
+
+-   **(5 pts)** CODE DOCUMENTATION. Add comments to nearly every line explaining what the line of code is doing.
+
+-   **(5 pts)** Submitted Knitted Document
+
+------------------------------------------------------------------------
+
+# Questions
+
+## Part 1
+
+### Q1
+
+#### Part A
+
+Is to be completed in Lab 4A. Below is a description of what is necessary from the lab.
+
+- The merged data set.
+
+#### Part B
+
+##### 1. Load the data set df3.csv and merge it to the previous data set
+```{r, class.output = "bg-success", class.source = "bg-success"}
+#reading in the csv files
+df1 <- read.csv("/Users/victoria/Downloads/df1.csv")
+df2 <- read.csv("/Users/victoria/Downloads/df2.csv")
+
+#merging
+df12 <- merge(df1,df2,by="id")
+
+#reading in 3rd file, merging
+df3 <- read.csv("/Users/victoria/Downloads/df3.csv")
+df_merge <- merge(df12,df3,by="id")
+```
+
+##### 2. Using the newly merged data set, create a scatter plot and fit a trend line to the data. Is there a positive or negative association with the data?
+
+```{r, class.output = "bg-success", class.source = "bg-success"}
+#scatter plot of x vs y
+attach(df_merge)
+plot(df_merge$x, df_merge$y, main="X vs Y",
+   xlab="X", ylab="Y") 
+
+#trend line
+abline(lm(df_merge$y~df_merge$x), col="red") 
+
+```
+
+::: {.a-panel}
+there is a slightly positive association with the data
+:::
+
+##### 3. Using the newly merged data set, create a scatter plot and fit a trend line for each group. What is the association for each group?
+```{r, class.output = "bg-success", class.source = "bg-success"}
+group_split(df_merge, group, .keep = TRUE)
+
+library(ggplot2)
+
+##Group 1
+df_merge1 <- subset(df_merge,  group == "1")
+# coefficients:
+df_merge1_lm = lm(y~x,data=df_merge1)
+df_merge1_lm
+# plot
+ggplot(df_merge1, aes(x = x, y = y)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red")
+
+##Group 2
+df_merge2 <- subset(df_merge,  group == "2")
+# coefficients:
+df_merge2_lm = lm(y~x,data=df_merge2)
+df_merge2_lm
+# plot
+ggplot(df_merge2, aes(x = x, y = y)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red")
+
+##Group 3
+df_merge3 <- subset(df_merge,  group == "3")
+# coefficients:
+df_merge3_lm = lm(y~x,data=df_merge3)
+df_merge3_lm
+# plot
+ggplot(df_merge3, aes(x = x, y = y)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "red")
+```
+
+::: {.a-panel}
+Group 1: negative
+Group 2: negative
+Group 3: positive
+:::
+
+##### 4. For each group, fit a linear regression model and interpret the slope for each group. The units for x and y are liters.
+```{r, class.output = "bg-success", class.source = "bg-success"}
+library(ggplot2)
+
+##Group 1
+# coefficients:
+df_merge1_lm = lm(y~x,data=df_merge1)
+df_merge1_lm
+
+##Group 2
+# coefficients:
+df_merge2_lm = lm(y~x,data=df_merge2)
+df_merge2_lm
+
+##Group 3
+# coefficients:
+df_merge3_lm = lm(y~x,data=df_merge3)
+df_merge3_lm
+
+```
+
+::: {.a-panel}
+Equations:
+Group 1: y = -4.198x + 5.197
+Group 2: y = -0.4546x + 21.6505
+Group 3: y = 4.7755x - 24.2894  
+:::
+## Part 2
+
+### Q2
+
+#### Part A
+
+Is to be completed in Lab 4B. Below is a description of what is necessary from the lab.
+
+- The 2-sample independent t-test results.
+
+- The `dreams` data.
+
+#### Part B
+
+##### 1. Conduct a paired t-test on the dreams data using the variables extra and group. Is there a significant difference between the groups? You can assume the vectors are ordered correctly.
+```{r, class.output = "bg-success", class.source = "bg-success"}
+
+#loading in necessary data
+load("/Users/victoria/Downloads/dreams.RData")
+library("dplyr")
+library("ggpubr")
+dreams
+
+#subset 1 and 2
+dreams_1 <- subset(dreams,  group == "1", extra,
+                 drop = TRUE)
+dreams_2 <- subset(dreams,  group == "2", extra,
+                 drop = TRUE)
+
+group_by(dreams, group) %>%
+  summarise(
+    count = n(),
+    mean = mean(extra, na.rm = TRUE),
+    sd = sd(extra, na.rm = TRUE)
+  )
+
+# Group 1 Summary Stats
+summary(dreams %>% filter(group == "1") )
+# Group 2 Summary Stats
+summary(dreams %>% filter(group == "2") )
+
+#Unpaired Two-Sample T-Test
+ggboxplot(dreams, x = "group", y = "extra", 
+          color = "group", palette = c("#00AFBB", "#E7B800"),
+        ylab = "Extra", xlab = "Group")
+
+#Paired T-Test
+ggplot(dreams, aes(group, extra)) +
+        geom_boxplot()
+
+# Plot paired data
+library(PairedData)
+paired <- paired(dreams_1, dreams_2)
+plot(paired, type = "profile") + theme_bw()
+paired_test <- t.test(dreams_1, dreams_2, paired = TRUE)
+paired_test
+
+#honestly i'm not sure what i did here i tried following 2 guides
+```
+
+::: {.a-panel}
+Yes, there is a significant difference between the groups. 
+:::
+
+
+##### 2. Compare the results from the paired t-test and the 2-sample independent t-test. Are the results the same?
+```{r, class.output = "bg-success", class.source = "bg-success"}
+
+#2 Sample T Test
+t.test(dreams_1, dreams_2,
+       paired=FALSE,
+       var.equal=TRUE)
+
+library("ggpubr")
+#Unpaired Two-Sample T-Test
+ggboxplot(dreams, x = "group", y = "extra", 
+          color = "group", palette = c("#00AFBB", "#E7B800"),
+        ylab = "Extra", xlab = "Group")
+
+#Paired T-Test
+t.test(dreams_1, dreams_2,
+       paired=TRUE,
+       var.equal=TRUE)
+ggplot(dreams, aes(group, extra)) +
+        geom_boxplot()
+```
+
+::: {.a-panel}
+The results are the same. 
+:::
+
+##### 3. The dreams data was constructed from the sleep data in R. Read the help documentation for the sleep data. Determine if the data is independent or dependent?
+```{r, class.output = "bg-success", class.source = "bg-success"}
+?sleep
+sleep_df <- data(sleep)
+sleep_df
+dreams
+
+#subsetting the separate groups
+sleep_1 <- subset(sleep,  group == "1")
+sleep_2 <- subset(sleep,  group == "2")
+
+#attaching as new column
+sleep_new <- merge(sleep_1,sleep_2,by="ID")
+sleep_new
+
+#removing unneeded columns
+sleep_new2 <- subset(sleep_new, select = c(ID, extra.x, extra.y))
+sleep_new2
+
+chisq <- chisq.test(sleep_new2$extra.x, sleep_new2$extra.y)
+chisq
+# printing the p-value
+chisq$p.value
+
+```
+
+::: {.a-panel}
+p-value = 0.2313417
+The two are not dependent.
+:::
+
+##### 4.Look at the confidence intervals for both tests. Which is larger? Postulate why one is larger than the other?
+```{r, class.output = "bg-success", class.source = "bg-success"}
+#calculating
+-3.363874 -  0.203874
+
+-2.4598858 + 0.7001142
+```
+
+::: {.a-panel}
+Confidence intervals:  (-3.363874,  0.203874) & (-2.4598858, -0.7001142)
+The two-sample t-test has a larger confidence interval that's approximately twice as large as the paired t-test. This is because, for the paired test, the data is condensed as we put the data into matched pairs, making the data set itself less wide. 
+
+An increase in sample size typically results in a higher confidence interval, which we saw here proportionally.
+:::
+
+## Part 3
+
+### Q3 The faithful data set in R provides information on waiting time (waiting, independent) and duration of eruption (eruptions, dependent) about the Old Faithful geyser in Yellow Stone National Park. Fit a Linear regression model and interpret the slope term.
+```{r, class.output = "bg-success", class.source = "bg-success"}
+?faithful
+faithful
+
+faithful_model <- lm(eruptions ~ waiting, data = faithful)
+summary(faithful_model)
+```
+
+::: {.a-panel}
+
+Equation:
+Eruptions = 0.075628(waiting) -1.874016
+
+The slope shows that there is a small increase in eruption time in relation to waiting time. 
+:::
+
+### Q4 The beaver1 data set in R provide temperature data for a beaver at different time points. Create time-series plot (line plot) showing the temperature trend of the beaver.
+```{r, class.output = "bg-success", class.source = "bg-success"}
+?beaver1
+
+head(beaver1)
+plot.ts(beaver1$temp, ylab = "Temperature", main = "Temperature vs Time")
+```
+
+### Q5 The trees data set in R provides measurements of the diameter (Girth, independent) and height(Height, dependent) of 31 fallen black cherry trees. Fit a linear regression model between the 2 variable and interpret the slope term.
+```{r, class.output = "bg-success", class.source = "bg-success"}
+?trees
+trees
+height=trees$Height
+ girth=trees$Girth
+ 
+# correlation coefficient
+cor(height,girth)
+lm_trees = lm(formula = height~girth,data=trees)
+
+# coefficients:
+summary(lm_trees)
+
+```
+
+::: {.a-panel}
+The linear regression model for the height and girth of trees is:
+height = 1.0544(girth) + 62.0313 
+
+The slope (1.054) shows that height does not increase much with girth (1:1.054 ratio)
+:::
+
+### Q6 The rock data set in R provides measurements of different rock samples in the petroleum reservoir. Run a correlation test between the variables area and shape.
+```{r, class.output = "bg-success", class.source = "bg-success"}
+?rock
+rock
+
+#correlation coefficient between rock area and shape 
+cor(rock$area, rock$shape)
+
+#test correlation
+cor.test(rock$area, rock$shape)
+
+```
+
+### Q7 The gehan data set in the R package MASS provides clinical trials on remission times for Leukemia patients. Conduct a hypothesis test comparing the treatment and control group (treat) on remission times time. Interpret the results.
+```{r, class.output = "bg-success", class.source = "bg-success"}
+library("MASS")
+??gehan
+gehan
+
+#assign control and treatment
+gehan_control <- gehan[gehan$treat =="control",]
+gehan_treatment <- gehan[gehan$treat =="6-MP",]
+
+#perform t-test
+t.test(gehan_control$time, gehan_treatment$time)
+  
+```
+
+::: {.a-panel}
+Because the p-value is less than .05, we reject the null hypothesis.
+:::
+## Part 4
+
+### Q8 Watch the following video: https://www.youtube.com/watch?v=Q2dewZweAtU(https://www.youtube.com/watch?v=Q2dewZweAtU). What is optimization?
+
+::: {.a-panel}
+Optimization is the selection of inputs that result in the best outputs. This typically involves finding the minimum amount of inputs that maximizes (or minimizes) outputs while also being given constraints on the inputs. 
+:::
+
+### Q9 If simple linear regression is used when the outcome is normally distributed, what type of regression is used when the outcome follows a Poisson distribution?
+
+::: {.a-panel}
+Poisson regression is used when the outcome follows a Poisson distribution. 
+:::
+
+### Q10 Using ggplot2, what is the function you need to plot a map?
+
+::: {.a-panel}
+Using ggplot2:
+ggplot(map_data_name) +
+  geom_sf() + 
+  coord_sf()
+  
+Can be used to plot a map. 
+:::
+
+
+
+
+
