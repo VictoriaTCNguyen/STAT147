@@ -1,0 +1,193 @@
+---
+title: "Dates & Times"
+author: "Victoria Nguyen"
+date: "7/18/2021"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      toc_collapsed: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{css, echo = FALSE}
+.o-panel {
+	background-color: #E8F8F5 ;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+}
+
+.c-panel {
+	background-color: #EBF5FB;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+}
+
+
+```
+
+## Introduction
+
+This tutorial will focus on the handling of data for dates & times in R. 
+
+
+### Contents
+
+1.    Dates in R
+
+2.    Times in R
+
+3.    Operations on Dates and Times 
+
+4.    Lubridate Example: Donnie Darko
+
+## Dates in R
+
+Dates in R are stored internally as the **number of days since 1 January 1970 (1970-01-01)**, formatted as Year-Month-Day.
+
+Dates are represented by the `Date` class and can be converted from a character string using `as.Date()`.
+
+Below, I will be converting using my birthday as an example. 
+
+```{r dt1_1, echo = TRUE}
+# Coercing a `Date` object from my birthday as characters
+
+Victoria_Birthday <- as.Date("1998-01-21")
+Victoria_Birthday
+```
+
+
+To see how a `Date` object is stored internally, we can use the `unclass()` function. 
+
+```{r dt1_2, echo = TRUE}
+unclass(Victoria_Birthday)
+```
+::: {.c-panel}
+As you can see, I was born 10,247 days after 1 January 1970. 
+:::
+
+::: {.o-panel}
+Later, we will look at using `lubridate` to make dates (and times!) even more flexible.
+:::
+
+## Times in R
+
+Similar to dates, times are stored in R as the **number of seconds since 00:00 on 1 January 1970 (UTC)**. 
+
+Times are represented by the `POSIXct` or `POSIXlt` classes. 
+
+`POSIXct` gives the **raw number of seconds**, which makes it useful for storing times in a data frame. 
+
+`POSIXlt`, on the other hand, stores information in components that are easier for us to interpret, such as the day of the week, or day of the year. 
+
+  Function    Purpose                               Range
+  ----------  ------------------------------        ----------
+  `sec`       seconds                               0-61
+  `min`       minutes                               0-59
+  `hour`      hours                                 0-23
+  `mday`      day of the month                      1-31
+  `mon`       months since first of the year        0-11
+  `year`      years since 1900                      ∞
+  `wday`      day(s) of the week since Sunday       0-6
+  `yday`      day(s) since first of the year        0-365
+  `isdst`     flag for Daylight Savings.            (+) if true, 0 if not, (-) if unknown
+  `zone`      time zone [Optional]                  [list](http://www.healthstream.com/hlchelp/Administrator/Classes/HLC_Time_Zone_Abbreviations.htm)
+  `gmtoff`    offset from GMT in seconds. [Optional]∞, NA or 0 if unknown
+  
+Let's see what kind of information is stored for my birthtime. 
+```{r lr1_3, echo = TRUE}
+#By default, times will be set at 00:00. We'll pretend I was born at 1:32:05 PM (PST)
+
+Victoria_Birthtime <- as.POSIXlt("1998-01-21 13:32:05 PDT")
+
+#Now, we'll unravel the stored vectors.
+unclass(Victoria_Birthtime)
+```
+::: {.o-panel}
+As you can see, all the different components were saved as different values. 
+:::
+------------------------------------------------------------------------
+
+## Operations on Dates and Times
+
+We can add and subtract using dates and times. Before doing so, make sure they're in the same format (if you have data saved as a `Date()   `, you can convert it using `as.POSIXlt()`).
+
+Without lubridate, you can perform simple calculations such as finding the difference between two dates, like so: 
+
+```{r dt3_1, echo = TRUE, warning=FALSE}
+
+#Here, I'm finding how many days were between my birthday and my younger brother's. 
+Erik_Birthtime <-  as.POSIXlt("2000-06-13 4:18:19 PDT")
+
+difference <- Erik_Birthtime - Victoria_Birthtime
+difference
+
+```
+
+------------------------------------------------------------------------
+
+## Lubridate Example: Donnie Darko
+
+Lubridate allows more flexibility with how dates can be input and how we can alter them. 
+
+For this example, I'll be showing how we can operate on a date and time without needing two whole dates (like the prior example). 
+
+<center>
+
+![](https://i.stack.imgur.com/WDtJT.jpg)
+
+</center>
+
+> In the sci-fi psychological thriller and cult classic movie, _Donnie Darko_, the mysterious figure Frank, faces the main character **on 2 October 1988** and says that the end of the world is in **28 days, 06 hours, 42 minutes, and 12 seconds**. Because the scene took place as Donnie's father was watching the evening news, and the story is set in Middlesex, Virginia, we assume that this took place around **7:00 PM EST**. _So, when was the end of the world?_
+
+Firstly, make sure you have lubridate installed. You can do so by installing all of tidyverse with `install.packages("tidyverse")`, or you can install lubridate by itself with `install.packages("tubridate")`.
+
+Starting with Frank and Donnie's meeting, we can input the date as a string using words or numbers. We can also rearrange the letters in `dmy` to put the date in using a different order. 
+```{r dt4_1, echo = TRUE, warning=FALSE}
+library("lubridate")
+
+Frank_Donnie_meeting <- dmy_hms("2-October-1988 19:00:00", tz = "EST")
+
+Frank_Donnie_meeting
+
+```
+
+Frank didn't give a precise time that the world would end, rather he knew when he would confront Donnie and told him how much time would elapse before the end of the world. We'll assign this time to a period. 
+
+```{r dt4_2, echo = FALSE, warning=FALSE, message=FALSE}
+#28 days, 06 hours, 42 minutes, and 12 seconds
+time_until_world_end <- days(28) + hours(6) +minutes (42) + seconds(12)
+
+time_until_world_end
+```
+
+Now, we can add the two to find the precise time the world was supposed to end: 
+
+```{r dt4_3, echo = FALSE, warning=FALSE, message=FALSE}
+world_end <- Frank_Donnie_meeting + time_until_world_end 
+world_end
+```
+
+::: {.c-panel}
+According to Frank, the world ended on October 31st, 1988 at 1:14:12 AM EST.
+:::
+## Extra Resources
+
+Here is a list of resources helpful for working with dates and times in R:
+
+1.  [UC Berkeley (Basics of Dates and Times)](https://www.stat.berkeley.edu/~s133/dates.html)
+2.  [Time Zone Abbreviations](http://www.healthstream.com/hlchelp/Administrator/Classes/HLC_Time_Zone_Abbreviations.htm)
+3.  [Lubridate Cheat Sheet](https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf)
+
+4.  [RichardOnData (YouTube), a video introduction to Lubridate](https://www.youtube.com/watch?v=VYAo69WdJZg)
