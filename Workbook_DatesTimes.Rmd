@@ -189,5 +189,4 @@ Here is a list of resources helpful for working with dates and times in R:
 1.  [UC Berkeley (Basics of Dates and Times)](https://www.stat.berkeley.edu/~s133/dates.html)
 2.  [Time Zone Abbreviations](http://www.healthstream.com/hlchelp/Administrator/Classes/HLC_Time_Zone_Abbreviations.htm)
 3.  [Lubridate Cheat Sheet](https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf)
-
 4.  [RichardOnData (YouTube), a video introduction to Lubridate](https://www.youtube.com/watch?v=VYAo69WdJZg)
