@@ -154,7 +154,7 @@ For this example, I'll be showing how we can operate on a date and time without 
 Firstly, make sure you have lubridate installed. You can do so by installing all of tidyverse with `install.packages("tidyverse")`, or you can install lubridate by itself with `install.packages("tubridate")`.
 
 Starting with Frank and Donnie's meeting, we can input the date as a string using words or numbers. We can also rearrange the letters in `dmy` to put the date in using a different order. 
-```{r dt4_1, echo = TRUE, warning=FALSE}
+```{r dt4_1, echo = TRUE, warning=FALSE, message=FALSE}
 library("lubridate")
 
 Frank_Donnie_meeting <- dmy_hms("2-October-1988 19:00:00", tz = "EST")
@@ -165,7 +165,7 @@ Frank_Donnie_meeting
 
 Frank didn't give a precise time that the world would end, rather he knew when he would confront Donnie and told him how much time would elapse before the end of the world. We'll assign this time to a period. 
 
-```{r dt4_2, echo = FALSE, warning=FALSE, message=FALSE}
+```{r dt4_2, echo = TRUE, warning=FALSE, message=FALSE}
 #28 days, 06 hours, 42 minutes, and 12 seconds
 time_until_world_end <- days(28) + hours(6) +minutes (42) + seconds(12)
 
@@ -174,7 +174,7 @@ time_until_world_end
 
 Now, we can add the two to find the precise time the world was supposed to end: 
 
-```{r dt4_3, echo = FALSE, warning=FALSE, message=FALSE}
+```{r dt4_3, echo = TRUE, warning=FALSE, message=FALSE}
 world_end <- Frank_Donnie_meeting + time_until_world_end 
 world_end
 ```

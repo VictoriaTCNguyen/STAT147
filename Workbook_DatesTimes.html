@@ -1696,19 +1696,21 @@ difference</code></pre>
 </blockquote>
 <p>Firstly, make sure you have lubridate installed. You can do so by installing all of tidyverse with <code>install.packages(&quot;tidyverse&quot;)</code>, or you can install lubridate by itself with <code>install.packages(&quot;tubridate&quot;)</code>.</p>
 <p>Starting with Frank and Donnie’s meeting, we can input the date as a string using words or numbers. We can also rearrange the letters in <code>dmy</code> to put the date in using a different order.</p>
-<pre class="r"><code>library(&quot;lubridate&quot;)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     date, intersect, setdiff, union</code></pre>
-<pre class="r"><code>Frank_Donnie_meeting &lt;- dmy_hms(&quot;2-October-1988 19:00:00&quot;, tz = &quot;EST&quot;)
+<pre class="r"><code>library(&quot;lubridate&quot;)
+
+Frank_Donnie_meeting &lt;- dmy_hms(&quot;2-October-1988 19:00:00&quot;, tz = &quot;EST&quot;)
 
 Frank_Donnie_meeting</code></pre>
 <pre><code>## [1] &quot;1988-10-02 19:00:00 EST&quot;</code></pre>
 <p>Frank didn’t give a precise time that the world would end, rather he knew when he would confront Donnie and told him how much time would elapse before the end of the world. We’ll assign this time to a period.</p>
+<pre class="r"><code>#28 days, 06 hours, 42 minutes, and 12 seconds
+time_until_world_end &lt;- days(28) + hours(6) +minutes (42) + seconds(12)
+
+time_until_world_end</code></pre>
 <pre><code>## [1] &quot;28d 6H 42M 12S&quot;</code></pre>
 <p>Now, we can add the two to find the precise time the world was supposed to end:</p>
+<pre class="r"><code>world_end &lt;- Frank_Donnie_meeting + time_until_world_end 
+world_end</code></pre>
 <pre><code>## [1] &quot;1988-10-31 01:42:12 EST&quot;</code></pre>
 <div class="c-panel">
 <p>According to Frank, the world ended on October 31st, 1988 at 1:14:12 AM EST.</p>
