@@ -1,0 +1,283 @@
+---
+title: "Probability Density Function"
+author: "Victoria Nguyen"
+date: "7/18/2021"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      toc_collapsed: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{css, echo = FALSE}
+.o-panel {
+	background-color: #E8F8F5 ;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+}
+
+.c-panel {
+	background-color: #EBF5FB;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+}
+
+
+```
+
+## Introduction
+
+Probability theory is fundamental in the study of statistics. This workbook will act as a guide to the functions built-in to R that help us look at **probability density functions**, or "PDFs".
+
+### Contents
+
+1.  What is a Probability Density Function?
+
+2.  Normal Distribution
+
+3.  Binomial Distribution
+
+## What is a Probability Density Function?
+
+The probability density function, or PDF, is the density of a continuous random variable, which takes on an infinite number of possible values. The PDF is used to find the relative likelihood for a random variable to take on a given value. 
+
+For discrete random variables, the _probability mass function_ is P(X=x), which allows us to find the probability of X taking on any of its possible values. 
+
+For continuous random variables, the probability that X takes on a particular value x is 0, because we cannot find P(X=x) for a continuous random variable X - instead, we find the possibility that V falls in an _interval (a,b)_. In other words, **we use a probability density function to find P(a<X<b)**. 
+
+
+::: {.c-panel}
+### Formula 
+
+The **probability density function ("PDF")** of a continuous random variable with support $S$ is an integrable function $f(x)$ satisfying the following:
+
+  1. $f(x)$ is positive everywhere in the support $S$. In other words, $f(x) > 0$ for all $x$ in $S$. 
+
+  2. The area under curve $f(x)$ in support $S$ = 1, meaning: 
+  $$\int_S f(x)dx= 1$$
+  3. If $f(x)$ is the PDF of $x$, then the probability that $x$ is in $A$, where $A$ is an interval, is found using the integral of $f(x)$ over said interval:
+  $$P(X \in A) = \int_A f(x)dx$$
+  
+The PDF of a continuous random variable is different from the PMF of a discrete random variable as we look at integrals rather than summations. 
+:::
+
+R is capable of handling many of the mechanisms needed to deal with distributions. In this workbook, we will be looking at Normal and Binomial distributions, though that's only a fraction of R's capabilities. 
+
+The following 4 function prefixes are consistent for all distributions: 
+
+  Function    Purpose                               
+  ----------  ------------------------------       
+  `d_`        density                              
+  `p_`        cumulative distribution function              
+  `q_`        quantile function (inverse of `p_`)                 
+  `r_`        random variates     
+  
+where `_` is the R name for the distribution, such as `norm` for normal distributions, or `binom` for binomial distributions.
+
+## Normal Distribution
+
+### When to Use 
+
+A continuous random variable $X$ follows a **normal distribution** when the PDF follows:
+
+$$f(x)=\dfrac{1}{\sigma \sqrt{2\pi}} \text{exp}\left\{-\dfrac{1}{2} \left(\dfrac{x-\mu}{\sigma}\right)^2\right\}$$
+for  $-\infty<x<\infty$, $-\infty<x<\infty$, and $0<\sigma<\infty$, where $\mu$ is the mean of $X$ and $\sigma^2$ is the variance. $X \sim N( \mu,\sigma^2)$
+
+Normal distributions are commonly used in statistics as many natural phenomena follow it. They have the following characteristics:
+
+  *   symmetric, bell-shaped curve
+  *   equal median and mean at the center of the distribution
+  *   ~68% of data falling within 1 standard deviation of the center
+  *   ~95% of data falling within 2 standard deviations of the center
+  *   ~99.7% of data falling within 3 standard deviations of the center
+
+### Functions
+
+  Function    Purpose                                 Syntax                Example
+  ----------  ------------------------------          --------              ------------------------------ 
+  `dnorm`     probability density function            `dnorm(x, mean, sd)`  ``dnorm(0, 0, .6)`` gives density (height of PDF) of the normal dist with mean=0 and sd=.6.        
+  `pnorm`     cumulative distribution function        `pnorm(q, mean, sd)`  ``pnorm(1.96, 0, 1)`` gives area under the standard normal curve to left of 1.96   
+  `qnorm`     quantile function (inverse of `qnorm`)  `qnorm(p, mean, sd)`  ``qnorm(0.975, 0, 1)`` gives value at which the CDF of standard normal dist is .975  
+  `rnorm`     random variates from distribution       `rnorm(n, mean, sd)`  ``rnorm(50, 2, .5)`` gives 50 numbers from a normal with mean 2 and sd=.5
+
+### Example
+To show how we can work with normal distributions in R, we will be using a sample from the data set built-in with R called ToothGrowth, and seeing if **tooth length** is normally distributed. 
+
+```{r norm_1, echo = TRUE}
+#Using sample_n() from the dplyr package 
+
+set.seed(07212021)
+ToothGrowth_data <- ToothGrowth
+dplyr::sample_n(ToothGrowth_data, 20)
+
+```
+
+::: {.c-panel}
+If you can recall, the **central limit theorem** says that we can assume a sampling distribution to be normal if it's large enough (n>30). If the sample size is less than 30, or if you would like to be consistent, we can check for normality using histograms (normal plots), quantile-quantile plots, or significance tests. 
+:::
+
+#### Testing for Normality
+
+**Plots**
+
+We will be using the `ggpubr` library for our plots. 
+
+A _density plot_ will help determine, visually, whether our distribution is bell-shaped. 
+
+```{r norm_2, echo = TRUE}
+library("ggpubr")
+ggdensity(ToothGrowth_data$len, 
+          main = "Density Plot of Tooth Length",
+          xlab = "Tooth length")
+```
+
+::: {.o-panel}
+We can see that the density does not have a symmetric, bell-shaped curve.
+:::
+
+
+We can also use a _quantile-quantile plot_, AKA a Q-Q plot, to see visually how close our distribution is to following the desired bell-shaped curve. 
+
+```{r norm_3, echo = TRUE}
+library("ggpubr")
+ggqqplot(ToothGrowth_data$len)
+```
+
+::: {.c-panel}
+As you can see, though the curve wasn't bell-shaped when we looked at the density plot, most data points fall along the diagonal reference line, so we can assume normality. 
+:::
+
+**Normality Test**
+
+While it's nice to do visual tests, it can be unreliable as we have to do qualitative assessment. Instead, we can use a _significance test_ to see how our sample distribution compares to a true, normal distribution.
+
+Here, we will use _Shapiro-Wilk's_. It is based on the correlation between the data and their corresponding normal scores. 
+
+```{r norm_4, echo = TRUE}
+shapiro.test(ToothGrowth_data$len)
+```
+
+::: {.c-panel}
+As long as the p-value is greater than 0.05, we can gather that the sample distribution's data doesn't fall too far from a normal distribution, meaning we can assume normality.
+:::
+
+#### Using Functions
+
+Now that we have assumed normality for our sample, let's see what kind of information we can gather using R's built-in functions. 
+
+We will need the range, mean, and standard deviation of the sample data. 
+
+```{r norm_5, echo = TRUE}
+ToothGrowth_data_range  <- range(ToothGrowth_data$len)
+ToothGrowth_data_mean   <- mean(ToothGrowth_data$len)
+ToothGrowth_data_sd     <- sd(ToothGrowth_data$len)
+```
+
+We can then use `dnorm()` to find the value of the probability density function. 
+```{r norm_6, echo = TRUE, warning=FALSE}
+tooth_dist <- dnorm(ToothGrowth_data_range, ToothGrowth_data_mean, ToothGrowth_data_sd ) 
+tooth_dist
+```
+
+Then, we can use `pnorm()` to find the integral from $-\infty$ to $q$ of the PDF, where q is a z-score. 
+
+```{r norm_7, echo = TRUE, warning=FALSE}
+tooth_cdf <- pnorm(26,ToothGrowth_data_mean,ToothGrowth_data_sd ) 
+tooth_cdf
+```
+
+
+`qnorm()` is odd. Given an area, we can find the boundary values that determines that area. Here, we find the 85th percentile of the sample knowing its mean 70 and standard deviation. It can be useful for finding z-scores to use with `pnorm()`.
+
+```{r norm_8, echo = TRUE, warning=FALSE}
+qnorm(.85,ToothGrowth_data_mean,ToothGrowth_data_sd) 
+
+#this means that 85% of values in the sample will lie below 26.74134.
+```
+
+Lastly, we can use `rnorm()` to pull a specified amount of normally distributed numbers from our distribution. Here, I'm pulling 5. 
+
+```{r norm_9, echo = TRUE, warning=FALSE}
+rnorm(5, ToothGrowth_data_mean, ToothGrowth_data_sd ) 
+```
+
+------------------------------------------------------------------------
+
+
+## Binomial Distribution
+
+### When to Use 
+
+We use a **binomial distribution** under the following conditions:
+
+  *   the number of observations, n, is fixed
+  *   each observation is independent
+  *   there are two possible outcomes per observation (typically "success" and "failure")
+  *   the probability of success for each observation is the same.
+
+The most well-known application of the binomial distribution is in finding the probability of landing $x$ amount of heads in $n$ number of coin flips. 
+
+The probability that a random variable $X$ with binomial distribution B(n,p) is equal to the value k, where k = 0,...n , is given by:
+
+$P(X=k)= \binom{n}{k}p^k (1-p)^{(n-k)}$ , where $\binom{n}{k} = \frac{n!}{k!(n-k)!}$
+
+$p$ is the probability of success, $q$ is the probability of failure, $n$ is the number of trials. 
+
+### Functions
+
+ The functions for binomial distributions are similar to those we used for normal distributions.
+ 
+Function    Purpose                                     Syntax                  Example
+----------  ------------------------------              --------                ------------------------------ 
+  `dbinom`     probability density function             `dbinom(x, size, prob)`  ``dbinom(3, 10, .5)`` probability of having exactly 3 successes out of 10 .5 chance attempts
+  `pbinom`     cumulative distribution function         `pbinom(q, size, prob)`  ``pbinom(3, 10, .5)`` probability of 3 or less successes our of 10 .5 chance attempts   
+  `qbinom`     quantile function (inverse of `pbinom`)   `qbinom(p, size, prob)`  ``qbinom(3, 10, .5)`` gives the pth quantile of the binomial distribution
+  `rbinom`     random variates from distribution        `rbinom(n, size, prob)`  ``rbinom(3, 10, .5)`` generates a vector of 3 binomial distributed random variables in 10 .5 chance trials
+
+### Example
+
+Imagine we're throwing dice 20 times. Assuming it's fair, there is a $\frac{1}{6}$ chance of it landing on any given side. We're interested in the dice landing on 1 or 2, making it a $\frac{1}{3}$ or approximately $.33$ probability of success. 
+
+Use `dbinom()` to find the probability that _exactly_ 9 of the rolls will land on 1 or 2.
+```{r binom_1, echo = TRUE, warning=FALSE}
+dbinom(9, 20, .33)
+```
+
+Now, use `pbinom()` to find the probability that there will be anywhere between 0 and 9 successes.
+
+```{r binom_2, echo = TRUE, warning=FALSE}
+pbinom(9, 20, .33)
+```
+
+What's the .5 quantile of this distribution?
+
+```{r binom_3, echo = TRUE, warning=FALSE}
+qbinom(.5, 20, .33)
+```
+
+Finally, generate a vector of 6 random variables in this distribution. 
+
+```{r binom_4, echo = TRUE, warning=FALSE}
+rbinom(6, 20, .33)
+```
+
+## Resources
+
+Other Helpful Resources:
+
+1.  [Penn State: An explanation of Probability Density Functions](https://online.stat.psu.edu/stat414/lesson/14/14.1)
+2.  [R Cookbook: Probability](https://rc2e.com/probability)
+3.  [MarinStatsLectures(Youtube): Using R for Normal Distributions](https://www.youtube.com/watch?v=peEsXbdMY_4)
+4.  [Statistics How-To: Binomial Distributions](https://www.statisticshowto.com/probability-and-statistics/binomial-theorem/binomial-experiment/)
