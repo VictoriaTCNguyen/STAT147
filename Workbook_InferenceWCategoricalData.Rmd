@@ -1,0 +1,117 @@
+---
+title: "Inference with Categorical Data"
+author: "Victoria Nguyen"
+date: "7/18/2021"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      toc_collapsed: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{css, echo = FALSE}
+.o-panel {
+	background-color: #E8F8F5 ;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+}
+
+.c-panel {
+	background-color: #EBF5FB;
+	padding-top: 10px;
+	padding-bottom: 1px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-top: 10px;
+}
+
+
+```
+
+## Introduction
+
+This tutorial focuses on inferences with categorical data in R. 
+
+### Contents
+1.  What is Inference?
+
+2.  One-Sample Proportion Test
+
+3.  Two-Sample Proportion Test
+
+## What is Inference?
+
+**Statistical inference** allows us to make deduce information about a sample or population's properties. It's most commonly done by calculating estimates or by testing hypotheses. 
+
+
+## One-Sample Proportion Test
+
+Given a sample of data from a population, we can use R to compare the porportions of successes and failures to the true proportion, `p`, of the population using `prop.test(x,n,p)`, where `n` is the sample size, `x` is the number of successes, and `p` is the true proportion.
+
+The output will be a p-value. If it's less than 0.05, it's unlikely that the sample proportion is the same as `p`. A p-value above 0.05 is insufficient to drawing such conclusions. 
+
+
+### Example
+
+Suppose my friend assumed the Bucks would win 4 out of 7 games needed to win the finals. We know they played 72 games and won 46 of them. In this scenario, all 7 games are played. $\frac{4}{7}$ translates to roughly $.57$.
+
+#### Testing the sample proportion 
+
+```{r Inf_1, echo = TRUE}
+#here, n=72, x=46, and .57 is the proportion we're comparing to. We use "greater" here as we are looking for 4 or more games out of the 7. 
+
+prop.test(46, 72, 0.57, alternative = "greater")
+
+```
+Notice that the above result includes the 95% confidence interval. It's set to .95 by default as that is the most commonly observed, however we can change it like this:
+
+```{r Inf_2, echo = TRUE}
+prop.test(46, 72, 0.57, conf.level = .99, alternative = "greater")
+```
+## Two-Sample Proportion Test
+
+Suppose that, instead of comparing a sample proportion to the population, we wanted to compare two samples for equal proportions. 
+
+
+### Example
+
+Suppose basketball teams stayed the same between this season and last, however the Minnesota Timberwolves changed coaches. For the 2020-2021 season (Coach B), they went 23-49, and 19-45 for the 2019-2020 season (Coach A). 
+
+Compare the two seasons to see if the change to Coach B from Coach A made a significant difference in team performance. 
+
+#### Comparing the Sample Proportions
+
+First, let's create the arrays we need for wins and games.
+
+```{r Inf_3, echo = TRUE}
+wins <- c(19, 23)
+games <- c(19+45, 23+49)
+```
+
+Now, let's perform a `prop.test()`:
+
+```{r Inf_4, echo = TRUE}
+prop.test(wins, games)
+```
+::: {.o-panel}
+The high p-value of 0.9216 shows that we cannot reject the null hypothesis: that Coach B's performance caused a significant increase in the Minnesota Timberwolves' success. 
+:::
+
+## Resources
+
+Here are other resources for Categorical Inference in R:
+
+1.  [Quick-R](https://rc2e.com/generalstatistics#recipe-id134)
+2.  [DWR44 (YouTube): Two Porportion Z-Test in R](https://www.youtube.com/watch?v=xWwnVYO4Aus)
+3.  [DWR44 (YouTube): 1-Proportion Z-Test in R](https://www.youtube.com/watch?v=7vmdHIG9NR8)
+4.  [Bookdown: Chi-square Test in R](https://bookdown.org/ndphillips/YaRrr/chi-square-chsq-test.html)
+
